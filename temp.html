@@ -84,6 +84,26 @@ footer p {
   margin-bottom: .25rem;
 }
 
+.cover-container {
+
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.cover-item {
+    position: relative;
+    display: inline-block;
+    margin: 8px 8px;
+    box-shadow: 2px 2px 4px #bbb;
+    border-top-right-radius: 4px;
+    width: 250px;
+    height: 350px;
+    vertical-align: bottom;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 </style>
   </head>
 
@@ -111,7 +131,8 @@ footer p {
     <section class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading">Celeb Match</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>
+        <p class="lead text-muted">Let's check which celeberity you look like !</p>
+         <p class="lead text-muted">You can upload your own picture or select one from the list below</p>
         <p>
          
         
@@ -121,50 +142,41 @@ footer p {
                 <input type="file" name="fileupload" value="fileupload" id="fileupload">
             </div>
             <button type="button" onclick="chooseFile();">Use Your Own Photo</button>
+             <button type="button" onclick="chooseFile();">Apply Filter</button>
         </form>
            
-      
-
-
-      
 
 
         </p>
       </div>
     </section>
 
-    <div class="album text-muted">
-      <div class="container" >
+    <div >
+      <div class="container-fluid" >
 
-        <div class="row">
-          <div class="card">
-            <img src="./Resources/1.jpeg" height = "50%" width = "70%" alt="Card image cap">
-          </div>
-          <div class="card">
-            <img src="./Resources/2.jpg" height = "50%" width = "70%"  alt="Card image cap">
-        
-          </div>
-          <div class="card">
-            <img src="./Resources/3.jpeg" height = "50%" width = "70%"  alt="Card image cap">
-      
-          </div>
-
-          <div class="card">
-            <img src="./Resources/4.jpg" height = "50%" width = "70%"  alt="Card image cap">
-
-          </div>
-          <div class="card">
-            <img src="./Resources/5.jpeg" height = "50%" width = "70%" alt="Card image cap">
-         
-          </div>
-          <div class="card">
-            <img src="./Resources/6.jpeg" height = "50%" width = "70%" alt="Card image cap">
-
-          </div>
+    <div class="row-fluid">
+    <div class="col-lg-12 col-md-10 ">
+        <div class="cover-container">
+            <!-- START PANEL -->
+            <div class="cover-item" style="background-image: url('./Resources/1.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/2.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/3.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/4.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/5.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/6.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/7.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/8.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/9.jpg')"></div>
+            <div class="cover-item" style="background-image: url('./Resources/10.jpg')"></div>
+            <!-- END PANEL -->
         </div>
+    </div>
+</div>
+
 
       </div>
     </div>
+
 
 
     <!-- Bootstrap core JavaScript
