@@ -1,0 +1,3 @@
+function chooseFile() {
+      $("#fileupload").click();
+   }
