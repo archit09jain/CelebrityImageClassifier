@@ -44,16 +44,15 @@
       <div class="container">
         <h1 class="jumbotron-heading">Celeb Match</h1>
         <p class="lead text-muted">Let's check which celeberity you look like !</p>
-         <p class="lead text-muted">You can upload your own picture or select one from the list below</p>
-        <p>
+        <p class="lead text-muted">You can upload your own picture or select one from the list below</p>
          
-        
         <form  method="post" enctype="multipart/form-data">
 
             <div style="height:0px;overflow:hidden">
                 <input type="file" name="fileupload" value="fileupload" id="fileupload">
             </div>
             <button type="button" onclick="chooseFile();">Use Your Own Photo</button>
+            <button type="button" onclick="sendDataToServer()">Submit</button>
             <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
         </form>
            
@@ -103,7 +102,7 @@
               <input type="radio" name="gender" value="MALE" style="margin-left:2%"> MALE
               <input type="radio" name="gender" value="FEMALE" style="margin-left:2%"> FEMALE
               <input type="radio" name="gender" value="ALL" style="margin-left:2%" checked> ALL
-            </form>
+            </form> 
 
 
           </div>

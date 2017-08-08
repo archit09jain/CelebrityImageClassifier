@@ -2,7 +2,7 @@ var totalDefaultImages = 10;
 var defaultImageLinks = [];
 var ageLowerBound = 0;
 var ageUpperBound =100;
-var gender = "all";
+var gender = "ALL";
 
 
 function onBodyLoad() {
@@ -30,14 +30,29 @@ function onBodyLoad() {
 
 function chooseFile() {
     $("#fileupload").click();
+}
 
-	$.ajax({
+
+function sendDataToServer() {
+
+    var url = "http://172.16.44.248:4567/predictions";
+    var data = new FormData($('#fileupload')[0]);
+    var dataString = JSON.stringify(data.serializeObject());
+    $.post(url, {data: dataString }, 'json');  
+		/*
+		var file_data = $("#fileupload").prop("files")[0];
+		var fd = new FormData();
+
+		fd.append("file", file_data);
+		fd.append("isFirst", true);
+
+		$.ajax({
 	    url: "http://172.16.44.248:4567/predictions",
 	    type: "POST",
 	    async: true, // set to false if you don't mind the page pausing while waiting for response
 	    cache: false,
 	    dataType: "json",
-	    data: '{"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
+	    data: '{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
 	    contentType: "application/json; charset=utf-8",
 	    success: function(data) {
 	        // handle your successful response here
@@ -45,9 +60,10 @@ function chooseFile() {
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
 	        // handle your fail response here
+	        alert("Oops cant't process your request");
 	    }
-	});
-		
+	});		
+	*/
 }
 
 function applyFilters() {
