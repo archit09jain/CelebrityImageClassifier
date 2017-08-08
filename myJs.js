@@ -3,6 +3,8 @@ var defaultImageLinks = [];
 var ageLowerBound = 0;
 var ageUpperBound =100;
 var gender = "ALL";
+var imagePointer = undefined;
+
 
 
 function onBodyLoad() {
@@ -18,42 +20,64 @@ function onBodyLoad() {
 
     for(var i = 0;i<totalDefaultImages;i++) {
 
-
           var newDiv = document.createElement("div");
           newDiv.setAttribute("class","cover-item");
           newDiv.style.backgroundImage = 'url(' + defaultImageLinks[i] +')';
+         	
 
+          newDiv.addEventListener("click", function() {
+
+          		imagePointer = newDiv.style.backgroundImage;
+          		//console.log(defaultImagePointer.style);
+          });
           holder.appendChild(newDiv);
     }
     console.log(holder);
 }
 
+
 function chooseFile() {
     $("#fileupload").click();
+    imagePointer = undefined; 
 }
 
 
+//still pending outputs not consistent
+function getCurrentImage() {
+
+	if(imagePointer == undefined) {
+		imagePointer = $("#fileupload").prop("files")[0];
+		if(imagePointer == undefined)
+				alert("No Image Selected or Uploaded");
+	}
+	else {
+		return imagePointer;
+	}
+}
+
 function sendDataToServer() {
 
-    var url = "http://172.16.44.248:4567/predictions";
-    var data = new FormData($('#fileupload')[0]);
-    var dataString = JSON.stringify(data.serializeObject());
-    $.post(url, {data: dataString }, 'json');  
-		/*
-		var file_data = $("#fileupload").prop("files")[0];
-		var fd = new FormData();
+	//'{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
+    var url = "http://172.16.44.248:4567/predictions";  
 
-		fd.append("file", file_data);
-		fd.append("isFirst", true);
+	var file_data = $("#fileupload").prop("files")[0];
+	var fd = new FormData();
+
+		fd.append("image", file_data);
+		fd.append("age1",ageLowerBound);
+		fd.append("age2",ageUpperBound);
+		fd.append("gender",gender);
+		fd.append("ethinicity","ASIAN");
 
 		$.ajax({
-	    url: "http://172.16.44.248:4567/predictions",
-	    type: "POST",
-	    async: true, // set to false if you don't mind the page pausing while waiting for response
-	    cache: false,
-	    dataType: "json",
-	    data: '{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
-	    contentType: "application/json; charset=utf-8",
+	    	type: "POST",
+            enctype: 'multipart/form-data',
+            url: "http://172.16.44.248:4567/predictions",
+            data: fd,
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeout: 600000,
 	    success: function(data) {
 	        // handle your successful response here
 	        document.write(data["message"]);
@@ -63,9 +87,11 @@ function sendDataToServer() {
 	        alert("Oops cant't process your request");
 	    }
 	});		
-	*/
+	
+
 }
 
+v
 function applyFilters() {
 	ageLowerBound=document.getElementById('ageLowerBound').value;
 	ageUpperBound=document.getElementById('ageUpperBound').value;
