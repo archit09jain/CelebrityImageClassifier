@@ -46,6 +46,7 @@ function getCurrentImage() {
 
 	if(imagePointer == undefined) {
 		imagePointer = $("#fileupload").prop("files")[0];
+
 		if(imagePointer == undefined)
 				alert("No Image Selected or Uploaded");
 	}
@@ -60,6 +61,7 @@ function sendDataToServer() {
     var url = "http://172.16.44.248:4567/predictions";  
 
 	var file_data = $("#fileupload").prop("files")[0];
+   // localStorage("UploadedFile",file_data);
 	var fd = new FormData();
 
 		fd.append("image", file_data);
@@ -82,8 +84,8 @@ function sendDataToServer() {
 	        // document.write(data);
 	        localStorage.setItem("_data",JSON.stringify(data));
 	     
-	       	//console.log(data["age"]);
-	        window.location.href = "./results.html";
+	       	//console.log(data);
+	       window.location.href = "./results.html";
 	        
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
