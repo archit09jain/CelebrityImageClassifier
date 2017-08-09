@@ -17,7 +17,10 @@ $(document).ready(function(){
           holder.appendChild(newDiv);
     }
     console.log(holder);
-    console.log(ageLowerBound);
+    //console.log(ageLowerBound);
+    var holder2 = document.getElementById("bestMatchAttrib");
+
+    console.log(JSON.parse(localStorage["_data"]));
 });
 
 function redirectToIndex() {

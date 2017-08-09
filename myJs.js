@@ -4,7 +4,7 @@ var ageLowerBound = 0;
 var ageUpperBound =100;
 var gender = "ALL";
 var imagePointer = undefined;
-
+var _data = undefined;
 
 
 function onBodyLoad() {
@@ -57,7 +57,7 @@ function getCurrentImage() {
 function sendDataToServer() {
 
 	//'{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
-    var url = "http://localhost/predictions";  
+    var url = "http://172.16.44.248:4567/predictions";  
 
 	var file_data = $("#fileupload").prop("files")[0];
 	var fd = new FormData();
@@ -80,8 +80,10 @@ function sendDataToServer() {
 	    success: function(data) {
 	        // handle your successful response here
 	        // document.write(data);
-	         console.log(data);
-	         window.location.href = "./results.html";
+	        localStorage.setItem("_data",JSON.stringify(data));
+	     
+	       	//console.log(data["age"]);
+	        window.location.href = "./results.html";
 	        
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
@@ -93,7 +95,7 @@ function sendDataToServer() {
 
 }
 
-v
+
 function applyFilters() {
 	ageLowerBound=document.getElementById('ageLowerBound').value;
 	ageUpperBound=document.getElementById('ageUpperBound').value;
