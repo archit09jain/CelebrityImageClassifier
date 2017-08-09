@@ -1,8 +1,10 @@
 var defaultImageLinks = [];
 var totalDefaultImages = 10;
+var _data = undefined;
 
 $(document).ready(function(){
-	for(var i = 1;i<=totalDefaultImages;i++) {
+	
+  for(var i = 1;i<=totalDefaultImages;i++) {
 		var uri = './Resources/' + i.toString() + '.jpg';
 		//console.log(uri);
 		defaultImageLinks.push(uri);
@@ -20,9 +22,21 @@ $(document).ready(function(){
     //console.log(ageLowerBound);
     var holder2 = document.getElementById("bestMatchAttrib");
 
-    console.log(JSON.parse(localStorage["_data"]));
+    _data = JSON.parse(localStorage["_data"]);
+
+    getImageFromBase64();
 });
 
 function redirectToIndex() {
 	window.location="./index.html";
+}
+
+
+function getImageFromBase64() {
+
+    var image = new Image();
+    image.src = 'data:image/png;base64,' + _data['celebrities'][0]['imgB64'];
+    document.body.appendChild(image);
+
+    return image;
 }
