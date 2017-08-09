@@ -24,7 +24,6 @@ function onBodyLoad() {
           newDiv.setAttribute("class","cover-item");
           newDiv.style.backgroundImage = 'url(' + defaultImageLinks[i] +')';
          	
-
           newDiv.addEventListener("click", function() {
 
           		imagePointer = newDiv.style.backgroundImage;
@@ -58,7 +57,7 @@ function getCurrentImage() {
 function sendDataToServer() {
 
 	//'{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
-    var url = "http://172.16.44.248:4567/predictions";  
+    var url = "http://localhost/predictions";  
 
 	var file_data = $("#fileupload").prop("files")[0];
 	var fd = new FormData();
@@ -80,7 +79,10 @@ function sendDataToServer() {
             timeout: 600000,
 	    success: function(data) {
 	        // handle your successful response here
-	        document.write(data["age"]);
+	        // document.write(data);
+	         console.log(data);
+	         window.location.href = "./results.html";
+	        
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
 	        // handle your fail response here
@@ -122,3 +124,45 @@ function post_to_url(path, params, method) {
         document.body.appendChild(form);
         form._submit_function_();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function(){
+
+    $(".filter-button").click(function(){
+        var value = $(this).attr('data-filter');
+        
+        if(value == "all")
+        {
+            //$('.filter').removeClass('hidden');
+            $('.filter').show('1000');
+        }
+        else
+        {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
+            $(".filter").not('.'+value).hide('3000');
+            $('.filter').filter('.'+value).show('3000');
+            
+        }
+    });
+    
+    if ($(".filter-button").removeClass("active")) {
+$(this).removeClass("active");
+}
+$(this).addClass("active");
+
+});
