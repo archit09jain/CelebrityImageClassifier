@@ -67,7 +67,7 @@ function sendDataToServer() {
 		fd.append("age1",ageLowerBound);
 		fd.append("age2",ageUpperBound);
 		fd.append("gender",gender);
-		fd.append("ethinicity","ASIAN");
+		fd.append("ethinicity","ANY");
 
 		$.ajax({
 	    	type: "POST",
@@ -80,7 +80,7 @@ function sendDataToServer() {
             timeout: 600000,
 	    success: function(data) {
 	        // handle your successful response here
-	        document.write(data["message"]);
+	        document.write(data["age"]);
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
 	        // handle your fail response here
