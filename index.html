@@ -21,25 +21,6 @@
 
   <body onload="onBodyLoad()">
 
-    <div class="collapse bg-inverse" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-          </div>
-          <div class="col-sm-4 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <section class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading">Celeb Match</h1>
@@ -51,9 +32,11 @@
             <div style="height:0px;overflow:hidden">
                 <input type="file" name="fileupload" value="fileupload" id="fileupload">
             </div>
-            <button type="button" onclick="chooseFile();">Use Your Own Photo</button>
+            <button class="btn btn-primary btn-lg" type="button" onclick="chooseFile();">Use Your Own Photo</button>
+            <button class="btn btn-primary btn-lg" type="button" onclick="sendDataToServer();">Submit</button>
+        <!--    <button type="button" onclick="chooseFile();">Use Your Own Photo</button>
             <button type="button" onclick="sendDataToServer()">Submit</button>
-            <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button>
+            <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button> -->
         </form>
            
 

@@ -67,7 +67,7 @@ footer p {
     position: relative;
     display: inline-block;
     margin: 8px 8px;
-    box-shadow: 2px 2px 4px #bbb;
+    box-shadow: 4px 4px 8px #bbb;
     border-top-right-radius: 4px;
     width: 250px;
     height: 350px;
