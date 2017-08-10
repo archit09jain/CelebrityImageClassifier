@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,94 +9,148 @@
     <title>Celeb Match</title>
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="./myCss.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./myCss.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="./myJs.js"></script>
-</head>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./myJs.js"></script>
+    <script src="./jsSecond.js"></script>
+    <script src="./jquery-cookie/jquery.cookie.js"></script>
+  </head>
 
   <body onload="onBodyLoad()">
+
+    <div id = "Page1">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Celeb Match</h1>
+          <p class="lead text-muted">Let's check which celeberity you look like !</p>
+          <p class="lead text-muted">You can upload your own picture or select one from the list below</p>
+
+          <form  method="post" enctype="multipart/form-data">
+
+            <div style="height:0px;overflow:hidden">
+              <input type="file" name="fileupload" value="fileupload" id="fileupload">
+            </div>
+            <button class="btn btn-primary btn-lg" type="button" onclick="chooseFile();">Use Your Own Photo</button>
+           
+             <br/><br/>
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Add Filters</h4>
+                  </div>
+                  
+                  <div class="modal-body">
+                    Age :  <input  style="margin-left:2%" type="number" id="ageLowerBound" name="ageLowerBound" min="0" max="100" placeholder = "0">  - <input type="number" id="ageUpperBound" name="ageUpperBound" min="0" max="100" placeholder="100">
+                    <br/><br/>
+                    
+                      Gender : 
+                        <input type="radio" name="gender" value="MALE" style="margin-left:2%"> MALE
+                        <input type="radio" name="gender" value="FEMALE" style="margin-left:2%"> FEMALE
+                        <input type="radio" name="gender" value="ANY" style="margin-left:2%" checked> ANY
+                        <br/>
+                        <button class="btn btn-primary btn-md" type="button" onclick="sendDataToServer();">Submit</button>
+                    </form> 
+                  </div>
+                
+              </div>
+        </div>
+      </section>
+
+
+      <div>
+        <div class="container-fluid" >
+
+          <div class="row-fluid">
+            <div class="col-lg-12 col-md-10 ">
+              <div class="cover-container" id = "thumbnailContainer">
+                <!-- START PANEL -->
+
+                <!-- END PANEL -->
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- Modal -->
+     
+
+  </div>
+
+
+  <div id = "Page2">
 
     <section class="jumbotron text-center">
       <div class="container">
         <h1 class="jumbotron-heading">Celeb Match</h1>
         <p class="lead text-muted">Let's check which celeberity you look like !</p>
-        <p class="lead text-muted">You can upload your own picture or select one from the list below</p>
-         
-        <form  method="post" enctype="multipart/form-data">
-
-            <div style="height:0px;overflow:hidden">
-                <input type="file" name="fileupload" value="fileupload" id="fileupload">
-            </div>
-            <button class="btn btn-primary btn-lg" type="button" onclick="chooseFile();">Use Your Own Photo</button>
-            <button class="btn btn-primary btn-lg" type="button" onclick="sendDataToServer();">Submit</button>
-        <!--    <button type="button" onclick="chooseFile();">Use Your Own Photo</button>
-            <button type="button" onclick="sendDataToServer()">Submit</button>
-            <button type="button" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal"></button> -->
-        </form>
-           
-
-
-
-        </p>
       </div>
     </section>
 
 
-    <div>
-      <div class="container-fluid" >
-
-    <div class="row-fluid">
-    <div class="col-lg-12 col-md-10 ">
-        <div class="cover-container" id = "thumbnailContainer">
-            <!-- START PANEL -->
-
-            <!-- END PANEL -->
-        </div>
-    </div>
-</div>
+    <div style="margin-left:15%;margin-right:15%;">
+      <div class="row">
 
 
-      </div>
-    </div>
-
-        <!-- Modal -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add Filters</h4>
+        <div class="container col-lg-4 col-xs-4 col-sm-4 col-md-4" >
+          <h3 class="lead text-muted " style="text-align:center;">Your Image</p>
+            <div id ="leftPlaceholder" class="cover-item img-responsive" style = "background-image: url('./Resources/9.jpg')" >   
+            </div>
           </div>
-          <div class="modal-body">
-         
-        
-           Age (Range) :  <input  style="margin-left:2%" type="number" id="ageLowerBound" name="ageLowerBound" min="0" max="100" placeholder = "0">  - <input type="number" id="ageUpperBound" name="ageUpperBound" min="0" max="100" placeholder="100">
-           <br>
-            <br>
-            <form>
-              Gender : 
-              <input type="radio" name="gender" value="MALE" style="margin-left:2%"> MALE
-              <input type="radio" name="gender" value="FEMALE" style="margin-left:2%"> FEMALE
-              <input type="radio" name="gender" value="ALL" style="margin-left:2%" checked> ALL
-            </form> 
+
+          <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 jumbotron text-center" >
+            <div id="bestMatchAttrib">
+            </br>
 
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="applyFilters()">SAVE</button>
+
           </div>
         </div>
 
+        <div class="container col-lg-4 col-xs-4 col-sm-4 col-md-4">
+          <h3 class="lead" style="text-align:center;">Best Match</p>
+            <div id = "rightPlaceHolder" class="cover-item img-responsive" style = "background-image: url('./Resources/2.jpg')" >   
+            </div>
+          </div>
+        </div>
+
+
       </div>
+
+
+
+
+
+    <section class="jumbotron text-center">
+
+      <div class="container">
+        <h2 class="jumbotron-heading">Other matches</h1>
+
+        </div>
+      </section>
+
+
+
+      <div class="container-fluid" style="margin-left:10%;">
+        <div class="row" id="matchContainer">
+          <br/>
+        </div>
+      </div>
+      <section class="jumbotron text-center">
+
+        <button class="btn btn-primary btn-lg" type="button" onclick="redirectToIndex();">Try Another Photo</button>
+      </section>
+
     </div>
 
 
   </body>
-</html>
+  </html>

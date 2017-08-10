@@ -2,13 +2,16 @@ var totalDefaultImages = 10;
 var defaultImageLinks = [];
 var ageLowerBound = 0;
 var ageUpperBound =100;
-var gender = "ALL";
+var gender = "ANY";
 var imagePointer = undefined;
 var _data = undefined;
+var _defaultImageLinks = [];
+var _totalDefaultImages = 0;
 
 
 function onBodyLoad() {
 	
+	document.getElementById("Page2").style.display = "none";
 	for(var i = 1;i<=totalDefaultImages;i++) {
 		var uri = './Resources/' + i.toString() + '.jpg';
 		//console.log(uri);
@@ -37,26 +40,13 @@ function onBodyLoad() {
 
 function chooseFile() {
     $("#fileupload").click();
-    imagePointer = undefined; 
 }
 
-
-//still pending outputs not consistent
-function getCurrentImage() {
-
-	if(imagePointer == undefined) {
-		imagePointer = $("#fileupload").prop("files")[0];
-
-		if(imagePointer == undefined)
-				alert("No Image Selected or Uploaded");
-	}
-	else {
-		return imagePointer;
-	}
-}
 
 function sendDataToServer() {
-
+	applyFilters();
+	document.getElementById("matchContainer").innerHTML = "";
+	_defaultImageLinks = [];
 	//'{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
     var url = "http://172.16.44.248:4567/predictions";  
 
@@ -82,10 +72,53 @@ function sendDataToServer() {
 	    success: function(data) {
 	        // handle your successful response here
 	        // document.write(data);
-	        localStorage.setItem("_data",JSON.stringify(data));
-	     
+	        //
+	        //$.cookie.json = true;
+	       // $.cookie("_data",JSON.stringify(data));
+	       // console.log(data['age']);
+	       _data = data;
+	       console.log(_data);
+
+	        var x = _data['celebrities'].length;
+
+			_totalDefaultImages = x;
+		   for(var i = 0;i<_totalDefaultImages;i++) {
+		 	//	var uri = './Resources/' + i.toString() + '.jpg';
+				//console.log(uri);
+
+			_defaultImageLinks.push(getImageFromBase64(i));
+		    //console.log(i);
+			}
+			var holder = document.getElementById("matchContainer");
+
+		    for(var j = 0;j<_totalDefaultImages;j++) {
+
+		          var newDiv = document.createElement("div");
+		          newDiv.setAttribute("class","cover-item");
+		          newDiv.style.backgroundImage = 'url(' + _defaultImageLinks[j] +')';
+		          holder.appendChild(newDiv);
+		    }
+		    //console.log(localStorage['UploadedFile'] );
+		    //document.getElementById("leftPlaceHolder").style.backgroundImage = 'url(' + localStorage['UploadedFile'] + ')';
+		    document.getElementById("rightPlaceHolder").style.backgroundImage = 'url(' + getImageFromBase64(0) + ')'
+		    //console.log(ageLowerBound);
+		    var holder2 = document.getElementById("bestMatchAttrib");
+
+		    var htmlToBeRendered = "<h2 class='lead text-muted'>Name : "
+		    + _data['celebrities'][0]['name'] + "</h2> <h2 class='lead text-muted'>Age : " 
+		    + _data['age'] + " </script></h2> <h2 class='lead text-muted'>Gender: " 
+		    + _data['gender'] + "</h2><h2 class='lead text-muted'>Ethinicity:" 
+		    +_data['ethinicity'] +"</h2> <h2 class='lead text-muted'>Matching Probability: " 
+		    + _data['celebrities'][0]['probability'] + "</h2>";
+		    holder2.innerHTML = htmlToBeRendered;
+
+
+	       document.getElementById("Page1").style.display = "none";
+	       document.getElementById("Page2").style.display = "block";
+
+	     //	console.log(JSON.stringify(data));
 	       	//console.log(data);
-	       window.location.href = "./results.html";
+	      //window.location.href = "./results.html";
 	        
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
@@ -97,15 +130,34 @@ function sendDataToServer() {
 
 }
 
+function doStuffOnSuccess() {
+
+}
 
 function applyFilters() {
-	ageLowerBound=document.getElementById('ageLowerBound').value;
-	ageUpperBound=document.getElementById('ageUpperBound').value;
-	gender = document.querySelector('input[name = "gender"]:checked').value;
+
+	var x = document.getElementById('ageLowerBound').value;
+	var y = document.getElementById('ageUpperBound').value;
+	var z = document.querySelector('input[name = "gender"]:checked').value;
+
+	if(x != "")
+		ageLowerBound=x;
+	else
+		ageLowerBound = 0;
+
+	if(y!= "") 
+		ageUpperBound = y;
+	else
+		ageUpperBound = 200;
+
+	if(gender != null)
+	gender = z;
+	else
+	gender = "ANY";
 	//alert(gender);
 }
 
-
+/*
 $(document).ready(function(){
 
     $(".filter-button").click(function(){
@@ -131,4 +183,4 @@ $(this).removeClass("active");
 }
 $(this).addClass("active");
 
-});
+});*/
