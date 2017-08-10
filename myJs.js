@@ -99,7 +99,7 @@ function sendDataToServer() {
 		          holder.appendChild(newDiv);
 		    }
 		    //console.log(localStorage['UploadedFile'] );
-		    //document.getElementById("leftPlaceHolder").style.backgroundImage = 'url(' + localStorage['UploadedFile'] + ')';
+		   //2 document.getElementById("leftPlaceholder").style.backgroundImage = 'url(' + getImageFromBase64FromData(_data['orignalImgB64']) + ')';
 		    document.getElementById("rightPlaceHolder").style.backgroundImage = 'url(' + getImageFromBase64(0) + ')'
 		    //console.log(ageLowerBound);
 		    var holder2 = document.getElementById("bestMatchAttrib");
@@ -157,6 +157,21 @@ function applyFilters() {
 	//alert(gender);
 }
 
+$(function () {
+    $(":file").change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = imageIsLoaded;
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+});
+
+function imageIsLoaded(e) {
+	document.getElementById("leftPlaceholder").style.backgroundImage = "url(" + e.target.result + ")";
+    //$('#').attr('src', e.target.result);
+
+};
 /*
 $(document).ready(function(){
 

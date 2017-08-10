@@ -16,3 +16,13 @@ function getImageFromBase64(index) {
 
     return image.src;
 }
+
+
+function getImageFromBase64FromData(data) {
+
+    var image = new Image();
+    image.src = 'data:image/png;base64,' + data;
+    //document.body.appendChild(image);
+
+    return image.src;
+}
