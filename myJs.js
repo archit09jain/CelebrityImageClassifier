@@ -80,7 +80,10 @@ function sendDataToServer() {
 	       console.log(_data);
 
 	        var x = _data['celebrities'].length;
-
+	        if(x == 0){
+	        	alert("No Data Found!! Please Change the filters.");
+	        	return;
+	        }
 			_totalDefaultImages = x;
 		   for(var i = 0;i<_totalDefaultImages;i++) {
 		 	//	var uri = './Resources/' + i.toString() + '.jpg';
