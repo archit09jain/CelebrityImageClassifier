@@ -48,7 +48,7 @@ function sendDataToServer() {
 	document.getElementById("matchContainer").innerHTML = "";
 	_defaultImageLinks = [];
 	//'{"image": ' + fd  + ',"age1": ' + ageLowerBound + ', "age2": ' + ageUpperBound + ', "gender": "' + gender +'","ethinicity": "ASIAN"}',
-    var url = "http://172.16.44.248:4567/predictions";  
+    var url = "http://172.16.44.36:4567/predictions";  
 
 	var file_data = $("#fileupload").prop("files")[0];
    // localStorage("UploadedFile",file_data);
@@ -58,12 +58,12 @@ function sendDataToServer() {
 		fd.append("age1",ageLowerBound);
 		fd.append("age2",ageUpperBound);
 		fd.append("gender",gender);
-		fd.append("ethinicity","ANY");
+		//fd.append("ethinicity","ANY");
 
 		$.ajax({
 	    	type: "POST",
             enctype: 'multipart/form-data',
-            url: "http://172.16.44.248:4567/predictions",
+            url: "http://172.16.44.36:4567/predictions",
             data: fd,
             processData: false,
             contentType: false,
@@ -91,13 +91,73 @@ function sendDataToServer() {
 			}
 			var holder = document.getElementById("matchContainer");
 
+			var div1 = document.createElement("div");
+		    div1.setAttribute("class","container");
+
+		    var div2 = document.createElement("div");
+		    div2.setAttribute("class","row");
+
+
 		    for(var j = 0;j<_totalDefaultImages;j++) {
 
-		          var newDiv = document.createElement("div");
-		          newDiv.setAttribute("class","cover-item");
-		          newDiv.style.backgroundImage = 'url(' + _defaultImageLinks[j] +')';
-		          holder.appendChild(newDiv);
+		    	 
+		    	var div3 = document.createElement("div");
+		    	div3.setAttribute("class","col-md-4");
+
+
+		    	var div4 = document.createElement("div");
+		    	div4.setAttribute("class","thumbnail");
+
+		    	var img = document.createElement("img");
+		    	img.style.width = "100%";
+		    	img.src = _defaultImageLinks[j];
+
+		    	var div5 = document.createElement("div");
+		    	div5.setAttribute("class","caption");
+
+		    	var para = document.createElement("p");
+
+		    	var actorDisplayData = "<center><h5> Name: " + _data['celebrities'][j]['name'] + ", Age:" + _data['celebrities'][j]['age'] + ", " + _data['celebrities'][j]['gender'] + ", " + _data['celebrities'][j]['probability']+  "%";
+
+		    	para.innerHTML = actorDisplayData;
+
+
+		    	div4.appendChild(img);
+		    	div5.appendChild(para);
+		    	div4.appendChild(div5);
+		    	div3.appendChild(div4);
+		    	div2.appendChild(div3);
+
+
+
+		    	  /*var parentDiv = document.createElement("div");
+		 
+		    	  var newDiv1 = document.createElement("div");
+		    	  var newDiv2 = document.createElement("div");
+
+		    	  parentDiv.setAttribute("class","container-fluid");
+		    	  
+		    	  newDiv1.setAttribute("class","cover-item");
+		    	  //newDiv1.style.height="80%";
+		          newDiv1.style.backgroundImage = 'url(' + _defaultImageLinks[j] +')';
+
+		          newDiv2.setAttribute("class","caption");
+		          newDiv1.style.backgroundRepeat = "no-repeat";
+		          newDiv2.innerHTML = _data['celebrities'][0]['name'];
+		          
+		    	 // var newDiv2 = document.createElement("div");
+		    	  //newDiv2.setAttribute("class","row");
+		    	  
+		        //  parentDiv.appendChild(innerDiv);
+		          parentDiv.appendChild(newDiv1);
+		          //parentDiv.appendChild(newDiv2)
+		          holder.appendChild(parentDiv); */
 		    }
+
+		    
+		    div1.appendChild(div2);
+		    holder.appendChild(div1);
+
 		    //console.log(localStorage['UploadedFile'] );
 		   //2 document.getElementById("leftPlaceholder").style.backgroundImage = 'url(' + getImageFromBase64FromData(_data['orignalImgB64']) + ')';
 		    document.getElementById("rightPlaceHolder").style.backgroundImage = 'url(' + getImageFromBase64(0) + ')'
@@ -107,8 +167,10 @@ function sendDataToServer() {
 		    var htmlToBeRendered = "<h2 class='lead text-muted'>Name : "
 		    + _data['celebrities'][0]['name'] + "</h2> <h2 class='lead text-muted'>Age : " 
 		    + _data['age'] + " </script></h2> <h2 class='lead text-muted'>Gender: " 
-		    + _data['gender'] + "</h2><h2 class='lead text-muted'>Ethinicity:" 
-		    +_data['ethinicity'] +"</h2> <h2 class='lead text-muted'>Matching Probability: " 
+		    + _data['gender'] 
+		    //+ "</h2><h2 class='lead text-muted'>Ethinicity:" 
+		    //+_data['ethinicity'] 
+		    +"</h2> <h2 class='lead text-muted'>Matching Probability: " 
 		    + _data['celebrities'][0]['probability'] + "</h2>";
 		    holder2.innerHTML = htmlToBeRendered;
 
