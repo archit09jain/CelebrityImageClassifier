@@ -84,7 +84,7 @@ function sendDataToServer() {
 	        	alert("No Data Found!! Please Change the filters.");
 	        	return;
 	        }
-			_totalDefaultImages = x;
+			_totalDefaultImages = Math.min(x,9);
 		   for(var i = 0;i<_totalDefaultImages;i++) {
 		 	//	var uri = './Resources/' + i.toString() + '.jpg';
 				//console.log(uri);
@@ -167,9 +167,8 @@ function sendDataToServer() {
 		    //console.log(ageLowerBound);
 		    var holder2 = document.getElementById("bestMatchAttrib");
 
-		    var htmlToBeRendered = "<h2 class='lead text-muted'>Name : "
-		    + _data['celebrities'][0]['name'] + "</h2> <h2 class='lead text-muted'>Age : " 
-		    + _data['age'] + " </script></h2> <h2 class='lead text-muted'>Gender: " 
+		    var htmlToBeRendered = "<h2 class='lead text-muted'>Expected Age : " 
+		    + _data['age'] + " </script></h2> <h2 class='lead text-muted'>Expected Gender: " 
 		    + _data['gender'] 
 		    //+ "</h2><h2 class='lead text-muted'>Ethinicity:" 
 		    //+_data['ethinicity'] 
