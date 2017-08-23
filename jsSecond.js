@@ -11,8 +11,8 @@ function redirectToIndex() {
 function getImageFromBase64(index) {
 
     var image = new Image();
-    image.src = 'data:image/png;base64,' + _data['celebrities'][index]['imgB64'];
-    //document.body.appendChild(image);
+    image.src =  _data['celebrities'][index]['imgUrl'];
+    //document.body.appendChild(image); 
 
     return image.src;
 }

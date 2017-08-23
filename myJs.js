@@ -39,7 +39,9 @@ function onBodyLoad() {
 
 
 function chooseFile() {
+
     $("#fileupload").click();
+
 }
 
 
@@ -59,7 +61,8 @@ function sendDataToServer() {
 		fd.append("age2",ageUpperBound);
 		fd.append("gender",gender);
 		//fd.append("ethinicity","ANY");
-
+		$(".overlay").show();
+		$("#loading").fadeIn().center();
 		$.ajax({
 	    	type: "POST",
             enctype: 'multipart/form-data',
@@ -70,6 +73,8 @@ function sendDataToServer() {
             cache: false,
             timeout: 600000,
 	    success: function(data) {
+	    	//$("#loading").fadeOut();
+	    	$(".overlay").hide();
 	        // handle your successful response here
 	        // document.write(data);
 	        //
@@ -107,13 +112,17 @@ function sendDataToServer() {
 		    	var div3 = document.createElement("div");
 		    	div3.setAttribute("class","col-md-4");
 
-
 		    	var div4 = document.createElement("div");
 		    	div4.setAttribute("class","thumbnail");
 
+		    	div4.style.height = "400px";
+
 		    	var img = document.createElement("img");
-		    	img.style.width = "100%";
 		    	img.src = _defaultImageLinks[j];
+		    	img.style.maxHeight = "80%";
+		    	img.style.height = "100%";
+
+
 
 		    	var div5 = document.createElement("div");
 		    	div5.setAttribute("class","caption");
@@ -163,7 +172,22 @@ function sendDataToServer() {
 
 		    //console.log(localStorage['UploadedFile'] );
 		   //2 document.getElementById("leftPlaceholder").style.backgroundImage = 'url(' + getImageFromBase64FromData(_data['orignalImgB64']) + ')';
-		    document.getElementById("rightPlaceHolder").style.backgroundImage = 'url(' + getImageFromBase64(0) + ')'
+		    
+		    var rightPlaceHolder = document.getElementById("rightPlaceHolder");
+		    rightPlaceHolder.style.height = "400px";
+
+		    rightPlaceHolder.setAttribute("class","thumbnail");
+		    rightPlaceHolder.innerHTML = "";
+		    
+		    var img = document.createElement("img");
+		    img.src = getImageFromBase64(0);
+		    img.style.maxHeight = "100%";
+		    img.style.height = "100%";
+		    rightPlaceHolder.appendChild(img);
+
+
+
+		    //document.getElementById("rightPlaceHolder").style.backgroundImage = 'url(' + getImageFromBase64(0) + ')'
 		    //console.log(ageLowerBound);
 		    var holder2 = document.getElementById("bestMatchAttrib");
 
@@ -173,7 +197,7 @@ function sendDataToServer() {
 		    //+ "</h2><h2 class='lead text-muted'>Ethinicity:" 
 		    //+_data['ethinicity'] 
 		    +"</h2> <h2 class='lead text-muted'>Matching Probability: " 
-		    + _data['celebrities'][0]['probability'] + "</h2>";
+		    + _data['celebrities'][0]['probability'] + "%</h2>";
 		    holder2.innerHTML = htmlToBeRendered;
 
 
@@ -186,6 +210,7 @@ function sendDataToServer() {
 	        
 	    },
 	    error: function(xhr, ajaxOptions, thrownError) {
+	    	$(".overlay").hide();
 	        // handle your fail response here
 	        alert("Oops cant't process your request");
 	    }
@@ -232,10 +257,37 @@ $(function () {
 });
 
 function imageIsLoaded(e) {
-	document.getElementById("leftPlaceholder").style.backgroundImage = "url(" + e.target.result + ")";
+	//document.getElementById("leftPlaceholder").style.backgroundImage = "url(" + e.target.result + ")";
     //$('#').attr('src', e.target.result);
 
+    var leftPlaceholder = document.getElementById("leftPlaceholder");
+    leftPlaceholder.innerHTML = "";
+    
+    leftPlaceholder.setAttribute("class","thumbnail");
+    leftPlaceholder.style.height = "400px";
+    
+    var img = document.createElement("img");
+    img.src = e.target.result;
+    img.style.maxHeight = "100%";
+    img.style.height = "100%";
+    leftPlaceholder.appendChild(img);
+
 };
+
+function showLoading(){
+	
+document.getElementById("loading").style = "visibility: visible";
+}
+function hideLoading(){
+	
+document.getElementById("loading").style = "display:none";
+}
+$.fn.center = function () {
+        this.css("position","fixed");
+        this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+        this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+        return this;
+      }
 /*
 $(document).ready(function(){
 
